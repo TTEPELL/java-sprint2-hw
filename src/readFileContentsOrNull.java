@@ -3,8 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class readFileContentsOrNull {
-    static String readFileContentsOrNull(String path)
-    {
+    static String readFileContentsOrNull(String path) {
         try {
             return Files.readString(Path.of(path));
         } catch (IOException e) {

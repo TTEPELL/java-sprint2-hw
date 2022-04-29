@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
 public class ReadMonthReportCSV {
+    public String[] monthNamelist = {"январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"};
+
     public final ArrayList<MonthlyReport> reports;
 
     public ReadMonthReportCSV() {
@@ -12,16 +14,12 @@ public class ReadMonthReportCSV {
         String[] lines = fileDataCSV.split("\n");
         for (int i = 1; i < lines.length; i++) {
             String[] data = lines[i].split(",");
-            insertData(data, monthNum);
+            MonthObject obj = new MonthObject(String.valueOf(data[0]), Boolean.valueOf(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3]));
+            if (reports.size() < monthNum) {
+                reports.add(new MonthlyReport());
+            }
+            reports.get(monthNum - 1).getObjects().add(obj);
         }
-    }
-
-    private void insertData(String[] data, int monthNumber) {
-        MonthObject obj = new MonthObject(String.valueOf(data[0]), Boolean.valueOf(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3]));
-        if (reports.size() < monthNumber) {
-            reports.add(new MonthlyReport());
-        }
-        reports.get(monthNumber - 1).getObjects().add(obj);
     }
 
     public void processingMonthlyReports(int month) {
@@ -29,20 +27,20 @@ public class ReadMonthReportCSV {
         int maxCost = 0;
         String nameMaxProfit = "";
         String nameMaxCost = "";
-        String[] monthName = {"январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"};
-        System.out.println(monthName[month - 1]);
+
+        System.out.println(monthNamelist[month - 1]);
         for (int m = 0; m < reports.get(month - 1).getObjects().size(); m++) {
-            if (reports.get(month - 1).getObjects().get(m).isexpense) {
-                int Cost = reports.get(month - 1).getObjects().get(m).quantity * reports.get(month - 1).getObjects().get(m).sum_of_one;
+            if (reports.get(month - 1).getObjects().get(m).getIsExpense()) {
+                int Cost = reports.get(month - 1).getObjects().get(m).getQuantity() * reports.get(month - 1).getObjects().get(m).getSumOfOne();
                 if (maxCost < Cost) {
                     maxCost = Cost;
-                    nameMaxCost = reports.get(month - 1).getObjects().get(m).item_name;
+                    nameMaxCost = reports.get(month - 1).getObjects().get(m).getItemName();
                 }
             } else {
-                int profit = reports.get(month - 1).getObjects().get(m).quantity * reports.get(month - 1).getObjects().get(m).sum_of_one;
+                int profit = reports.get(month - 1).getObjects().get(m).getQuantity() * reports.get(month - 1).getObjects().get(m).getSumOfOne();
                 if (profit > maxProfit) {
                     maxProfit = profit;
-                    nameMaxProfit = reports.get(month - 1).getObjects().get(m).item_name;
+                    nameMaxProfit = reports.get(month - 1).getObjects().get(m).getItemName();
                 }
             }
         }
@@ -66,10 +64,10 @@ public class ReadMonthReportCSV {
             int summCoast = 0;
             int summProfit = 0;
             for (int m = 0; m < reports.get(monthNumber - 1).getObjects().size(); m++) {
-                if (reports.get(monthNumber - 1).getObjects().get(m).isexpense){
-                    summCoast+= reports.get(monthNumber - 1).getObjects().get(m).quantity*reports.get(monthNumber - 1).getObjects().get(m).sum_of_one;
+                if (reports.get(monthNumber - 1).getObjects().get(m).getIsExpense()){
+                    summCoast+= reports.get(monthNumber - 1).getObjects().get(m).getQuantity()*reports.get(monthNumber - 1).getObjects().get(m).getSumOfOne();
                 }else{
-                    summProfit += reports.get(monthNumber - 1).getObjects().get(m).quantity*reports.get(monthNumber - 1).getObjects().get(m).sum_of_one;
+                    summProfit += reports.get(monthNumber - 1).getObjects().get(m).getQuantity()*reports.get(monthNumber - 1).getObjects().get(m).getSumOfOne();
                 }
             }
             summMonthReport[monthNumber-1][0]=summProfit;

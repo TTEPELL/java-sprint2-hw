@@ -22,9 +22,9 @@ public class YearlyReport {
     public static void insertData(String[] data) {
         int mountfNumber = Integer.parseInt(data[0]);
         int sum = Integer.parseInt(data[1]);
-        boolean bool = Boolean.valueOf(data[2]);
+        boolean isCoast = Boolean.valueOf(data[2]);
 
-        if (bool) {
+        if (isCoast) {
             YearReport[mountfNumber - 1][1] = sum;  //записываем в столбик к расходам
         } else {
             YearReport[mountfNumber - 1][0] = sum;  //записываем в столбик к доходам

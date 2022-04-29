@@ -1,15 +1,31 @@
 public class MonthObject {
 
-    String item_name;
-    Boolean isexpense;
-    int quantity;
-    int sum_of_one;
+    private String itemName;
+    private Boolean isExpense;
+    private int quantity;
+    private int sumOfOne;
 
-    MonthObject(String item_name, Boolean isexpense, int quantity, int sum_of_one) {
-        this.item_name = item_name;
-        this.isexpense = isexpense;
+    MonthObject(String itemName, Boolean isExpense, int quantity, int sumOfOne) {
+        this.itemName = itemName;
+        this.isExpense = isExpense;
         this.quantity = quantity;
-        this.sum_of_one = sum_of_one;
+        this.sumOfOne = sumOfOne;
     }
 
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public int getSumOfOne() {
+        return sumOfOne;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public Boolean getIsExpense() {
+        return isExpense;
+    }
 }
