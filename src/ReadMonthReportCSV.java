@@ -2,14 +2,18 @@ import java.util.ArrayList;
 
 public class ReadMonthReportCSV {
 
-    public final ArrayList<ArrayList<MonthObject>> reports;
+    private final ArrayList<ArrayList<MonthObject>> reports;
 
     public ReadMonthReportCSV() {
         this.reports = new ArrayList<>();
     }
 
+    public ArrayList<ArrayList<MonthObject>> getReports(){
+        return reports;
+    }
+
     public void readData(String path, int monthNum) {
-        String fileDataCSV = readFileContentsOrNull.readFileContentsOrNull(path);
+        String fileDataCSV = ReportReader.ReadFileContentsOrNull(path);
         String[] lines = fileDataCSV.split("\n");
         for (int i = 1; i < lines.length; i++) {
             String[] data = lines[i].split(",");
@@ -29,17 +33,18 @@ public class ReadMonthReportCSV {
 
         System.out.println(monthNamelist[month - 1]);
         for (int m = 0; m < reports.get(month - 1).size(); m++) {
-            if (reports.get(month - 1).get(m).getIsExpense()) {
-                int Cost = reports.get(month - 1).get(m).getQuantity() * reports.get(month - 1).get(m).getSumOfOne();
+            MonthObject obj = reports.get(month - 1).get(m);
+            if (obj.getIsExpense()) {
+                int Cost = obj.getQuantity() * obj.getSumOfOne();
                 if (maxCost < Cost) {
                     maxCost = Cost;
-                    nameMaxCost = reports.get(month - 1).get(m).getItemName();
+                    nameMaxCost = obj.getItemName();
                 }
             } else {
-                int profit = reports.get(month - 1).get(m).getQuantity() * reports.get(month - 1).get(m).getSumOfOne();
+                int profit = obj.getQuantity() * obj.getSumOfOne();
                 if (profit > maxProfit) {
                     maxProfit = profit;
-                    nameMaxProfit = reports.get(month - 1).get(m).getItemName();
+                    nameMaxProfit = obj.getItemName();
                 }
             }
         }

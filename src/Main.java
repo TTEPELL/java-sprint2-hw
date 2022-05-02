@@ -7,12 +7,10 @@ public class Main {
         ReadMonthReportCSV ReadMonthReportCSV = new ReadMonthReportCSV();
         int NumberOfMonth = 3;
 
-        while (true) {
-            printMenu();
-            int userInput = scanner.nextInt();
-            if (userInput == 0) {  //блок выхода по команде. В прошлый раз изменил команду в меню, но не поменял в условии
-                break;
-            }
+        printMenu();
+        int userInput = scanner.nextInt();
+
+        while (userInput!=0) {
             switch (userInput) {
                 case 1: {
                     for (int i = 1; i <= NumberOfMonth; i++) {
@@ -26,13 +24,13 @@ public class Main {
                     YearlyReport.readYearData("resources/y." + userInput + ".csv", userInput, NumberOfMonth);
                     break;
                 case 3:
-                    if (YearlyReport.getDataRead() && (!ReadMonthReportCSV.reports.isEmpty())) {
+                    if (YearlyReport.getDataRead() && (!ReadMonthReportCSV.getReports().isEmpty())) {
                         int[][] summMonthlyReport = ReadMonthReportCSV.summMonthReport(NumberOfMonth);
                         СomparisonOfReports.compare(summMonthlyReport, YearlyReport.getYearReport(), NumberOfMonth, ReadMonthReportCSV.getMonthNameList());
                     } else {
-                        if ((!YearlyReport.getDataRead()) && ReadMonthReportCSV.reports.isEmpty()) {
+                        if ((!YearlyReport.getDataRead()) && ReadMonthReportCSV.getReports().isEmpty()) {
                             System.out.println("Годовой и месячные отчеты не найдены. Загрузите отчеты.");
-                        } else if (ReadMonthReportCSV.reports.isEmpty()) {
+                        } else if (ReadMonthReportCSV.getReports().isEmpty()) {
                             System.out.println("Месячный отчет не найден. Загрузите отчет.");
                         } else {
                             System.out.println("Годовой отчет не найден. Загрузите отчет.");
@@ -48,6 +46,8 @@ public class Main {
                 default:
                     System.out.println("Извините, такой команды пока нет");
             }
+            printMenu();
+            userInput = scanner.nextInt();
         }
     }
 
