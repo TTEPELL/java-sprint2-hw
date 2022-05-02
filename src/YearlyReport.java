@@ -1,14 +1,14 @@
 public class YearlyReport {
 
-    private static int[][] yearReport;   //массив данных годового отчета. [месяц][доходы, расходы]
-    private static boolean dataRead;
-    private static int yearNumber;
+    private int[][] yearReport;   //массив данных годового отчета. [месяц][доходы, расходы]
+    private boolean dataRead;
+    private int yearNumber;
 
-    public static boolean getDataRead() {
+    public boolean getDataRead() {
         return dataRead;
     }
 
-    public static void readYearData(String path, int yearNum, int NumberofMonth) {
+    public void readYearData(String path, int yearNum, int NumberofMonth) {
         yearReport = new int[NumberofMonth][2];
         String fileDataCSV = ReportReader.ReadFileContentsOrNull(path);
         if (fileDataCSV != null) {
@@ -30,11 +30,11 @@ public class YearlyReport {
         yearNumber = yearNum;
     }
 
-    public static int[][] getYearReport() {
+    public int[][] getYearReport() {
         return yearReport;
     }
 
-    public static void processingYearReport() {
+    public void processingYearReport() {
         if (dataRead) {
             int averageСosts = 0;
             int averageProfit = 0;

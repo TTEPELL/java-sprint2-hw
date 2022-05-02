@@ -5,6 +5,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         ReadMonthReportCSV ReadMonthReportCSV = new ReadMonthReportCSV();
+        YearlyReport YearlyReport = new YearlyReport();
         int NumberOfMonth = 3;
 
         printMenu();
