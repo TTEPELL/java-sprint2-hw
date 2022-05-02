@@ -1,3 +1,4 @@
+
 public class MonthObject {
 
     private String itemName;
@@ -11,7 +12,6 @@ public class MonthObject {
         this.quantity = quantity;
         this.sumOfOne = sumOfOne;
     }
-
 
     public int getQuantity() {
         return quantity;
@@ -28,4 +28,5 @@ public class MonthObject {
     public Boolean getIsExpense() {
         return isExpense;
     }
+
 }

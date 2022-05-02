@@ -5,13 +5,12 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         ReadMonthReportCSV ReadMonthReportCSV = new ReadMonthReportCSV();
-
         int NumberOfMonth = 3;
 
         while (true) {
             printMenu();
             int userInput = scanner.nextInt();
-            if (userInput == 0) {
+            if (userInput == 0) {  //блок выхода по команде. В прошлый раз изменил команду в меню, но не поменял в условии
                 break;
             }
             switch (userInput) {
@@ -24,14 +23,14 @@ public class Main {
                 case 2:
                     System.out.println("за какой год считать отчет? введите год в формате YYYY");
                     userInput = scanner.nextInt();
-                    YearlyReport.readData("resources/y." + userInput + ".csv", userInput, NumberOfMonth);
+                    YearlyReport.readYearData("resources/y." + userInput + ".csv", userInput, NumberOfMonth);
                     break;
                 case 3:
-                    if (YearlyReport.dataRead && (!ReadMonthReportCSV.reports.isEmpty())) {
+                    if (YearlyReport.getDataRead() && (!ReadMonthReportCSV.reports.isEmpty())) {
                         int[][] summMonthlyReport = ReadMonthReportCSV.summMonthReport(NumberOfMonth);
-                        СomparisonOfReports.compare(summMonthlyReport, YearlyReport.YearReport, NumberOfMonth, YearlyReport.monthName);
+                        СomparisonOfReports.compare(summMonthlyReport, YearlyReport.getYearReport(), NumberOfMonth, ReadMonthReportCSV.getMonthNameList());
                     } else {
-                        if ((!YearlyReport.dataRead) && ReadMonthReportCSV.reports.isEmpty()) {
+                        if ((!YearlyReport.getDataRead()) && ReadMonthReportCSV.reports.isEmpty()) {
                             System.out.println("Годовой и месячные отчеты не найдены. Загрузите отчеты.");
                         } else if (ReadMonthReportCSV.reports.isEmpty()) {
                             System.out.println("Месячный отчет не найден. Загрузите отчет.");
@@ -43,17 +42,14 @@ public class Main {
                 case 4:
                     ReadMonthReportCSV.printReport(NumberOfMonth);
                     break;
-
                 case 5:
                     YearlyReport.processingYearReport();
                     break;
-
                 default:
                     System.out.println("Извините, такой команды пока нет");
             }
         }
     }
-
 
     private static void printMenu() {
         System.out.println("Что вы хотите сделать? ");
@@ -62,9 +58,8 @@ public class Main {
         System.out.println("3 - Сверить отчёты");
         System.out.println("4 - Вывести информацию о всех месячных отчётах");
         System.out.println("5 - Вывести информацию о годовом отчёте");
-        System.out.println("2517 - Завершить работу программы");
+        System.out.println("0 - Завершить работу программы");
     }
-
 }
 
 
